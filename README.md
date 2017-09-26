@@ -4,5 +4,10 @@
 ### Trello
 [View my Trello board for this project](https://trello.com/b/t8GXIQ8G/wdi-project-1)
 
-### Game Wireframe
-![asteroid game wireframe](https://github.com/jpleva91/project-1/blob/master/wireframes/asteroid_game_wireframe.png)
+## Game Wireframes
+### Game Start
+![asteroid game wireframe](https://github.com/jpleva91/project-1/blob/master/wireframes/Game%20Start%20Layover.png)
+### In Game
+![asteroid game wireframe](https://github.com/jpleva91/project-1/blob/master/wireframes/In%20Game.png)
+### Game Over
+![asteroid game wireframe](https://github.com/jpleva91/project-1/blob/master/wireframes/Game%20Over.png)

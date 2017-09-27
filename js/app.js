@@ -141,7 +141,7 @@ window.requestAnimationFrame(step);
 function update() {
 
 	// - Keydown Listener - 
-	$(document).keydown(function(e) {
+	document.addEventListener('keydown', (function(e) {
 
 		if(e.which==32) {
 			ship.fire();
@@ -181,7 +181,7 @@ function update() {
 
 		});
 
-	});
+	}));
 
 };
 

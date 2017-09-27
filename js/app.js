@@ -8,24 +8,30 @@ var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
 
 function render() {
+
+	// Paint Canvas Black
+	ctx.fillStyle = "black";
+	ctx.rect(0, 0, 300, 300);
+	ctx.fill();
+
+	// Paint Stars
+	stars();
+
+	// Paint Ship
 	makeShip();
 }
 
 function stars() {
 
-	for (let i = 0; i <= 50; i++) {
+	for (let i = 0; i <= 299; i++) {
 
 		let x = Math.floor(Math.random() * 299)
 		let y = Math.floor(Math.random() * 299)
 
 		ctx.fillStyle = "white";
 
-		// Space from Ship
-
-		if(x < 30 || y < 30) ctx.fillStyle = "black";
-
 		ctx.beginPath();
-		ctx.arc(x, y, 3, 0, Math.PI * 2, true);
+		ctx.arc(x, y, 1, 0, Math.PI * 2, true);
 		ctx.closePath();
 		ctx.fill();
 

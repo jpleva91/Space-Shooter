@@ -11,24 +11,30 @@ var mCtx = canvasMain.getContext('2d');
 var canvasShip = document.getElementById('ship');
 var sCtx = canvasShip.getContext('2d');
 
+function starField() {
 
-function render() {
-
-	// Paint Canvas Black
 	bCtx.fillStyle = "black";
 	bCtx.rect(0, 0, 300, 300);
 	bCtx.fill();
-
 	// Paint Stars
 	stars();
 
+}
+
+
+function render() {
+	requestAnimationFrame(render);
+
 	// Paint Ship
 	makeShip();
+
 }
+
+render();
 
 function stars() {
 
-	for (let i = 0; i <= 299; i++) {
+	for (let i = 0; i <= 300; i++) {
 
 		let x = Math.floor(Math.random() * 299)
 		let y = Math.floor(Math.random() * 299)

@@ -4,6 +4,9 @@
 ### Trello
 [View my Trello board for this project](https://trello.com/b/t8GXIQ8G/wdi-project-1)
 
+### Play the Game
+[Asteroids.. Invaders? 2](https://jpleva91.github.io/project-1/game.html)
+
 ## Game Wireframes
 ### Game Start
 ![asteroid game wireframe](https://github.com/jpleva91/project-1/blob/master/wireframes/Game%20Start%20Layover.png)

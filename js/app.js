@@ -46,8 +46,6 @@ function keyCode(e) {
 
 	// - Press Shift to Start -
 	if(e.which==16) {
-		// - Render Function -
-		render();
 		gameStart();
 	}
 	
@@ -431,6 +429,7 @@ function collisionDetection() {
 function gameStart() {
 
 window.setInterval(asteroid, 300);
+render();
 
 };
 
@@ -491,7 +490,7 @@ function render() {
 	gameAsteroids.forEach(function(asteroid) {
 
 		asteroid.draw();
-		
+
 	});
 
 	// - Handle Collisons Every Frame -

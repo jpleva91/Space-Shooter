@@ -1,4 +1,8 @@
+/*
+* - Centers Canvas on Page -
+*/
 canvas {
+
 	position: absolute;
 	left: 50%;
 	margin-left: -150px;
@@ -6,6 +10,7 @@ canvas {
 	top: 50%;
 	height: 450px;
 	width: 300px;
+
 }
 
 #background.canvas {
@@ -27,19 +32,31 @@ canvas {
 }
 
 ul {
+
 	list-style: none;
+	
 }
 
+/*
+* - Player One Score Display -
+*/
 #playerOne {
+
 	float: left;
 	position: relative;
 	left: 150px;
 	top: 120px;
+
 }
 
+/*
+* - Player Two Score Display -
+*/
 #playerTwo {
+
 	float: right;
 	position: relative;
 	right: 180px;
 	top: 120px;
+
 }

@@ -176,6 +176,71 @@ var player = {
 
 };
 
+// - Scoring -
+player.point = function() {
+
+	// - First to 100 Wins -
+	if(player.scoreOne === 100) {
+		alert("Player One Wins!!!");
+	}
+	if(player.scoreTwo === 100) {
+		alert("Player Two Wins!!!");
+	}
+
+	// - Updates Score Based On Counter -
+	if(counter % 2) {
+		this.scoreTwo += 2;
+		playerTwo.innerHTML = 
+		"Player Two Score: " + this.scoreTwo;
+	} else {
+		this.scoreOne += 2;
+		playerOne.innerHTML =
+		"Player One Score: " + this.scoreOne;
+	}
+	
+}
+
+// - Marks Player Object Inactive -
+player.destroy = function() {
+	this.active = false;
+	counter += 1;
+	if(counter % 2) {
+		alert("Player Two's Turn");
+	} else {
+		alert("Player One's Turn");
+	}
+};
+
+// - Player Fire -
+player.fire = function() {
+
+	// - Fire from Middle of Ship -
+	var beamPosition = this.midpoint();
+
+	// - Push Beam Object to Player Beams Array -
+	playerBeams.push(Beam({
+
+		// - Beam Fire Rate -
+		speed: 6,
+		x: beamPosition.x,
+		y: beamPosition.y
+
+	}));
+	
+};
+
+// - Determines Midpoint of Player -
+player.midpoint = function() {
+
+	return {
+
+		x: this.x + this.width / 2,
+		y: this.y + this.height /2
+
+	};
+
+};
+
 // === Player Beams ===
 
 // - Beam Object -
@@ -228,24 +293,31 @@ function Beam(I) {
 	};
 
 	return I;
+
 }
 
 // === Asteroids! ===
 
+// - Asteroid Object -
 function Asteroid(A) {
 
+	// - Starts Active -
 	A.active = true;
 
+	// - Doesn't Move Horizontally -
 	A.xVelocity = 0;
 
+	// - Falls Top to Bottom - 
 	A.yVelocity = A.speed;
 
 	A.width = 60;
 
 	A.height = 60;
 
+	// - Brown -
 	A.color = 'rgba(126, 44, 44, 0.7)';
 
+	// - Returns True While Inbounds -
 	A.inBounds = function() {
 
 		return A.x >= 0 && A.x<= canvasMain.width && A.y >= A.y <= canvasMain.height;
@@ -266,6 +338,7 @@ function Asteroid(A) {
 
 	};
 
+	// - Asteroid is Marked Inactive -
 	A.destroy = function() {
 		this.active = false;
 	}
@@ -274,6 +347,22 @@ function Asteroid(A) {
 
 }
 
+// - Asteroid Settings -
+function asteroid() {
+
+	var asteroidPosition = topAtRandom(canvasMain);
+
+	gameAsteroids.push(Asteroid({
+
+		speed: 7,
+		x: asteroidPosition.x,
+		y: asteroidPosition.y,
+
+	}));
+
+};
+
+// - Returns Random Location Along the X Axis and 0 -
 function topAtRandom() {
 
 	return {
@@ -286,115 +375,62 @@ function topAtRandom() {
 
 };
 
-
-player.point = function() {
-
-	if(player.scoreOne === 100) {
-		alert("Player One Wins!!!");
-	}
-	if(player.scoreTwo === 100) {
-		alert("Player Two Wins!!!");
-	}
-
-	if(counter % 2) {
-		this.scoreTwo += 2;
-		playerTwo.innerHTML = 
-		"Player Two Score: " + this.scoreTwo;
-	} else {
-		this.scoreOne += 2;
-		playerOne.innerHTML =
-		"Player One Score: " + this.scoreOne;
-	}
-	
-}
-
-player.destroy = function() {
-	this.active = false;
-	//alert('You Died!!');
-	counter += 1;
-	if(counter % 2) {
-		alert("Player Two's Turn");
-	} else {
-		alert("Player One's Turn");
-	}
-};
-
-// - Player Fire -
-player.fire = function() {
-
-	// - Fire from Middle of Ship -
-	var beamPosition = this.midpoint();
-
-	// - Push Beam Object to Player Beams Array -
-	playerBeams.push(Beam({
-
-		// - Beam Fire Rate -
-		speed: 6,
-		x: beamPosition.x,
-		y: beamPosition.y
-
-	}));
-	
-};
-
-// - Determines Midpoint of Player -
-player.midpoint = function() {
-
-	return {
-
-		x: this.x + this.width / 2,
-		y: this.y + this.height /2
-
-	};
-
-};
-
 // === Collision Detection === 
 function collides(a, b) {
+
+	// - Checks x and y values of two parameters -
 	return a.x < b.x + b.width &&
 				 a.x + a.width > b.x &&
 				 a.y < b.y + b.height &&
 				 a.y + a.height > b.y;
-}
-
-function collisionDetection() {
-	playerBeams.forEach(function(beam) {
-		gameAsteroids.forEach(function(asteroid) {
-			if(collides(beam, asteroid)) {
-				player.point();
-				asteroid.destroy();
-				beam.active = false;
-			}
-		});
-	});
-
-	gameAsteroids.forEach(function(asteroid) {
-		if (collides(asteroid, player)) {
-			asteroid.destroy();
-			player.destroy();
-		}
-	})
-}
-
-// === Renders Game Loop ===
-
-function gameStart() {
-
-window.setInterval(asteroid, 300);
 
 };
 
-function asteroid() {
+// - Collision Handler -
+function collisionDetection() {
 
-	var asteroidPosition = topAtRandom(canvasMain);
+	playerBeams.forEach(function(beam) {
 
-	gameAsteroids.push(Asteroid({
+		gameAsteroids.forEach(function(asteroid) {
 
-		speed: 7,
-		x: asteroidPosition.x,
-		y: asteroidPosition.y,
+			// - If a Player Beam Collids with an Asteroid -
+			if(collides(beam, asteroid)) {
 
-	}));
+				// - Increase Player Score -
+				player.point();
+
+				// - Destroy Asteroid -
+				asteroid.destroy();
+
+				// - Mark Beam Inactive -
+				beam.active = false;
+
+			};
+
+		});
+
+	});
+
+	gameAsteroids.forEach(function(asteroid) {
+
+		if (collides(asteroid, player)) {
+
+			asteroid.destroy();
+			player.destroy();
+
+		}
+
+	});
+
+};
+
+
+// === Renders Game Loop ===
+
+// - Game Start Function Bound to Shift Button -
+function gameStart() {
+
+window.setInterval(asteroid, 300);
 
 };
 
@@ -437,18 +473,28 @@ function render() {
 
 	});
 
+	// - Updates Asteroids Every Frame -
 	gameAsteroids.forEach(function(asteroid) {
+
 		asteroid.update();
+	
 	});
 
+	// - Returns Active Asteroids -
 	gameAsteroids = gameAsteroids.filter(function(asteroid) {
+
 		return asteroid.active;
+	
 	});
 
+	// - Draw Active Asteroids -
 	gameAsteroids.forEach(function(asteroid) {
+
 		asteroid.draw();
+		
 	});
 
+	// - Handle Collisons Every Frame -
 	collisionDetection();
 
 }

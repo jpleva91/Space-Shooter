@@ -12,9 +12,6 @@ var playerBeams = [];
 // - Asteroids Array -
 var gameAsteroids = [];
 
-// - Player Score -
-var playerScore = 0;
-
 // - Interval Timer -
 var timer = 1500;
 
@@ -338,19 +335,16 @@ function collisionDetection() {
 
 // === Renders Game Loop ===
 
-if(playerScore > 5) {
-	timer = 100;
-}
 
-window.setInterval(asteroid, timer);
+window.setInterval(asteroid, 400);
 
 function asteroid() {
-	console.log(timer);
+
 	var asteroidPosition = topAtRandom(canvasMain);
 
 	gameAsteroids.push(Asteroid({
 
-		speed: 1,
+		speed: 7 ,
 		x: asteroidPosition.x,
 		y: asteroidPosition.y,
 

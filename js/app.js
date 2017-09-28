@@ -12,6 +12,9 @@ var playerBeams = [];
 // - Asteroids Array -
 var gameAsteroids = [];
 
+// - Player Scoring -
+var playerOne = document.getElementById("playerOne");
+var playerTwo = document.getElementById("playerTwo");
 var counter = 0;
 
 // - Interval Timer -
@@ -43,6 +46,11 @@ window.addEventListener('keydown', this.keyCode, false);
 
 // - Keyboard Controls -
 function keyCode(e) {
+
+	// - Press Enter to Start -
+	if(e.which==13) {
+		render();
+	}
 	
 	// - Space Bar Fires -
 	if(e.which==32) {
@@ -114,6 +122,9 @@ function starField() {
 	bCtx.fill();
 	// Paint Stars
 	stars();
+	sCtx.font = "28px Arial";
+	sCtx.fillStyle = "white";
+	sCtx.fillText("Press Enter To Start", 23, 200);
 
 }
 
@@ -272,12 +283,21 @@ function topAtRandom() {
 
 player.point = function() {
 
+	if(player.scoreOne === 100) {
+		alert("Player One Wins!!!");
+	}
+	if(player.scoreTwo === 100) {
+		alert("Player Two Wins!!!");
+	}
+
 	if(counter % 2) {
-		this.scoreOne += 1;
-		console.log("Player Two Score: " + this.scoreOne);
+		this.scoreTwo += 2;
+		playerTwo.innerHTML = 
+		"Player Two Score: " + this.scoreTwo;
 	} else {
-		this.scoreTwo += 1;
-		console.log("Player One Score: " + this.scoreTwo);
+		this.scoreOne += 2;
+		playerOne.innerHTML =
+		"Player One Score: " + this.scoreOne;
 	}
 	
 }
@@ -425,4 +445,4 @@ function render() {
 }
 
 // - Calls Render Function -
-render();
+//render();

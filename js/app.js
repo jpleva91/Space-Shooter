@@ -2,153 +2,90 @@
 console.log("js is loaded");
 
 // === Global Variables ===
-var x;
-var y;
-var rotation = 0;
-var playerBullets = [];
 
-// - Canvas Dimensions - 
+// - Ships Initial Rotation Value -
+var rotation = 0;
+
+// - Player Beams Array -
+var playerBeams = [];
+
+// - Asteroids Array -
+var gameAsteroids = [];
+
+// === Canvas Dimensions ===
+// - Bottom Layer Background Canvas -
 var canvasBackground = document.getElementById('background');
+
+// - Background Canvas Context - 
 var bCtx = canvasBackground.getContext('2d');
+
+// - Main Layer Background Canvas -
 var canvasMain = document.getElementById('main');
+
+// - Main Canvas Context -
 var mCtx = canvasMain.getContext('2d');
+
+// - Top Layer Ship Canvas -
 var canvasShip = document.getElementById('ship');
+
+// - Ship Canvas Context -
 var sCtx = canvasShip.getContext('2d');
 
+// === Game Keyboard Controls ===
+
+// - Adds Keydown Event Listener -
 window.addEventListener('keydown', this.keyCode, false);
 
+// - Keyboard Controls -
 function keyCode(e) {
-	let code = e.keyCode;
 	
+	// - Space Bar Fires -
 	if(e.which==32) {
-		player.shoot();
+		player.fire();
 	}
-	if(code == 38){
+
+	// - Up Arrow  -
+	if(e.which == 38){
 		sCtx.translate(0,-10);
 		player.y -= 10;
 	}
-	if(code == 40) {
+
+	// - Down Arrow -
+	if(e.which == 40) {
 		sCtx.translate(0, 10);
 		player.y += 10;
 	}
-	if(code == 37) {
+
+	// - Left Arrow  -
+	if(e.which == 37) {
 		sCtx.translate(-10,0);
 		player.x -= 10;
 	}
-	if(code == 39) {
+
+	// - Right Arrow -
+	if(e.which == 39) {
 		sCtx.translate(10,0);
 		player.x += 10;
 	}
-	if(code == 188) {
+
+	// - ( < ) Rotates Left -
+	if(e.which == 188) {
 		rotation -= 12;
 	}
-	if(code == 190) {
+
+	// - ( > ) Rotates Right -
+	if(e.which == 190) {
 		rotation += 12;
 	}
 
 }
 
-function starField() {
+// === Background Canvas === 
 
-	bCtx.fillStyle = "black";
-	bCtx.rect(0, 0, 300, 450);
-	bCtx.fill();
-	// Paint Stars
-	stars();
-
-}
-
-var player = {
-	color: 'rgba(0,0,0,1)',
-	x: 139,
-	y: 210,
-	width: 20,
-	height: 32,
-	draw: function() {
-		mCtx.fillStyle = this.color;
-		mCtx.fillRect(this.x, this.y, this.width, this.height);
-	},
-	shoot: function() {
-		console.log("pew");
-	}
-};
-
-function Bullet(I) {
-	I.active = true;
-
-	I.xVelocity = 0;
-	I.yVelocity = -I.speed;
-	I.width = 3;
-	I.height = 7;
-	I.color = 'orange';
-
-	I.inBounds = function() {
-		return I.x >= 0 && I.x <= canvasMain.width &&  I.y >= I.y <= canvasMain.height;
-	};
-
-	I.draw = function() {
-		mCtx.fillStyle = this.color;
-		mCtx.fillRect(this.x, this.y, this.width, this.height);
-	};
-
-	I.update = function() {
-		I.x += I.xVelocity;
-		I.y += I.yVelocity;
-
-		I.active = I.active && I.inBounds();
-	};
-
-	return I;
-}
-
-player.shoot = function() {
-	console.log('pew');
-	console.log(this.midpoint());
-	var bulletPosition = this.midpoint();
-
-	playerBullets.push(Bullet({
-		speed: 7,
-		x: bulletPosition.x,
-		y: bulletPosition.y
-	}));
-	console.log(playerBullets);
-};
-
-player.midpoint = function() {
-	return {
-		x: this.x + this.width / 2,
-		y: this.y + this.height /2
-	};
-};
-
-
-function render() {
-	requestAnimationFrame(render);
-	sCtx.clearRect(0,0,300,450);
-	mCtx.clearRect(0,0, canvasShip.width, canvasShip.height);
-
-	// Paint Ship
-	makeShip();	
-	player.draw();
-
-	playerBullets.forEach(function(bullet) {
-		bullet.update();
-	});
-
-	playerBullets = playerBullets.filter(function(bullet) {
-		return bullet.active;
-	});
-
-	playerBullets.forEach(function(bullet) {
-		bullet.draw();
-	});
-}
-
-render();
-
+// - Randomly Generated Stars for Background -
 function stars() {
 
-	for (let i = 0; i <= 300; i++) {
+	for (let i = 0; i <= 450; i++) {
 
 		let x = Math.floor(Math.random() * 299)
 		let y = Math.floor(Math.random() * 440)
@@ -164,22 +101,265 @@ function stars() {
 
 }
 
-function makeShip() {
+// - Draws Starfield Background on Background Canvas Layer -
+function starField() {
+
+	bCtx.fillStyle = "black";
+	bCtx.rect(0, 0, 300, 450);
+	bCtx.fill();
+	// Paint Stars
+	stars();
+
+}
+
+// === Ship Canvas ===
+
+// - Draw Ship Function -
+function drawShip() {
+
 	var w = 20;
 	var h = 33;
 	sCtx.save();
 	sCtx.translate(canvasShip.width /2, canvasShip.height/2);
 	sCtx.rotate(rotation*Math.PI/180);
 	sCtx.beginPath();
-	//Center of Canvas
 	sCtx.moveTo(0, -h / 2);
-	//10px left and 30 px down
 	sCtx.lineTo(w / 2 , h / 2);
-	//20px right
 	sCtx.lineTo(-w / 2, h / 2);
 	sCtx.lineTo(0, -h / 2);
 	sCtx.fillStyle = "rgb(24, 202, 230)";
 	sCtx.fill();
 	sCtx.closePath();
 	sCtx.restore();
+
 };
+
+// === Main Canvas ===
+
+// - Main Canvas Layer Element is Bound to Player Ship -
+var player = {
+
+	// - Transparent - 
+	color: 'rgba(0,0,0,0)',
+	x: 139,
+	y: 210,
+	width: 20,
+	height: 32,
+
+	draw: function() {
+
+		mCtx.fillStyle = this.color;
+		mCtx.fillRect(this.x, this.y, this.width, this.height);
+
+	}
+
+};
+
+// === Player Beams ===
+
+// - Beam Object -
+function Beam(I) {
+
+	// - Beam Starts Active -
+	I.active = true;
+
+	// - Doesn't Move Along X Axis (Need to Link this to Rotation) - 
+	I.xVelocity = 0;
+
+	// - Shoots Upward -
+	I.yVelocity = -I.speed;
+
+	// - Beam Width -
+	I.width = 3;
+
+	//- Beam Height -
+	I.height = 7;
+
+	// - Beam Color -
+	I.color = 'red';
+
+	// - Return True While Inbounds -
+	I.inBounds = function() {
+
+		return I.x >= 0 && I.x <= canvasMain.width &&  I.y >= I.y <= canvasMain.height;
+
+	};
+
+	// - Draws Beams -
+	I.draw = function() {
+
+		mCtx.fillStyle = this.color;
+		mCtx.fillRect(this.x, this.y, this.width, this.height);
+
+	};
+
+	// - Updates Beams -
+	I.update = function() {
+
+		I.x += I.xVelocity;
+		I.y += I.yVelocity;
+
+		I.active = I.active && I.inBounds();
+
+	};
+
+	return I;
+}
+
+// - Player Fire -
+player.fire = function() {
+
+	// - Fire from Middle of Ship -
+	var beamPosition = this.midpoint();
+
+	// - Push Beam Object to Player Beams Array -
+	playerBeams.push(Beam({
+
+		// - Beam Fire Rate -
+		speed: 7,
+		x: beamPosition.x,
+		y: beamPosition.y
+
+	}));
+	
+};
+
+// - Determines Midpoint of Player -
+player.midpoint = function() {
+
+	return {
+
+		x: this.x + this.width / 2,
+		y: this.y + this.height /2
+
+	};
+
+};
+
+// === Asteroids! ===
+
+function Asteroid(A) {
+
+	A.active = true;
+
+	A.xVelocity = 0;
+
+	A.yVelocity = A.speed;
+
+	A.width = 50;
+
+	A.height = 50;
+
+	A.color = 'rgba(126, 44, 44, 0.7)';
+
+	A.inBounds = function() {
+
+		return A.x >= 0 && A.x<= canvasMain.width && A.y >= A.y <= canvasMain.height;
+
+	};
+
+	A.draw = function() {
+
+		mCtx.fillStyle = this.color;
+		mCtx.fillRect(this.x, this.y, this.width, this.height);
+
+	};
+
+	A.update = function() {
+
+		A.x += A.xVelocity;
+		A.y += A.yVelocity;
+
+	};
+
+	return A;
+
+}
+
+function topAtRandom() {
+
+	return {
+
+		x: Math.floor(Math.random()*300),
+		y: 0
+
+
+	};
+
+};
+
+
+
+// === Renders Game Loop ===
+
+window.setInterval(asteroid, 1500);
+
+function asteroid() {
+
+	var asteroidPosition = topAtRandom(canvasMain);
+
+	gameAsteroids.push(Asteroid({
+
+		speed: 1,
+		x: asteroidPosition.x,
+		y: asteroidPosition.y,
+
+	}));
+
+};
+
+// - Renders Every Frame -
+function render() {
+
+	 // - Frame Rate -
+	requestAnimationFrame(render);
+
+	// - Clear Ship Canvas Every Frame -
+	sCtx.clearRect(0,0,canvasShip.width, canvasShip.height);
+
+	// - Clear Main Canvas Every Frame -
+	mCtx.clearRect(0,0, canvasShip.width, canvasShip.height);
+
+	// - Draw Player Ship on Ship Canvas
+	drawShip();	
+
+	// - Draw Player Object on Main Canvas
+	player.draw();
+
+	// - Updates Beams Every Frame -
+	playerBeams.forEach(function(beam) {
+
+		beam.update();
+
+	});
+
+	// - Filters Active Beams -
+	playerBeams = playerBeams.filter(function(beam) {
+
+		return beam.active;
+
+	});
+
+	// - Draws Active Beams -
+	playerBeams.forEach(function(beam) {
+
+		beam.draw();
+
+	});
+
+	gameAsteroids.forEach(function(asteroid) {
+		asteroid.update();
+	});
+
+	gameAsteroids = gameAsteroids.filter(function(asteroid) {
+		return asteroid.active;
+	});
+
+	gameAsteroids.forEach(function(asteroid) {
+		asteroid.draw();
+	});
+
+}
+
+// - Calls Render Function -
+render();

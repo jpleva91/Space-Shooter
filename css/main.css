@@ -25,3 +25,21 @@ canvas {
 	z-index: 2;
 
 }
+
+ul {
+	list-style: none;
+}
+
+#playerOne {
+	float: left;
+	position: relative;
+	left: 150px;
+	top: 120px;
+}
+
+#playerTwo {
+	float: right;
+	position: relative;
+	right: 180px;
+	top: 120px;
+}

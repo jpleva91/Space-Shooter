@@ -17,9 +17,6 @@ var playerOne = document.getElementById("playerOne");
 var playerTwo = document.getElementById("playerTwo");
 var counter = 0;
 
-// - Interval Timer -
-var timer = 1500;
-
 // === Canvas Dimensions ===
 // - Bottom Layer Background Canvas -
 var canvasBackground = document.getElementById('background');
@@ -49,7 +46,9 @@ function keyCode(e) {
 
 	// - Press Enter to Start -
 	if(e.which==13) {
+		// - Render Function -
 		render();
+		gameStart();
 	}
 	
 	// - Space Bar Fires -
@@ -59,26 +58,26 @@ function keyCode(e) {
 
 	// - Up Arrow  -
 	if(e.which == 38){
-		sCtx.translate(0,-10);
-		player.y -= 10;
+		sCtx.translate(0,-20);
+		player.y -= 20;
 	}
 
 	// - Down Arrow -
 	if(e.which == 40) {
-		sCtx.translate(0, 10);
-		player.y += 10;
+		sCtx.translate(0, 20);
+		player.y += 20;
 	}
 
 	// - Left Arrow  -
 	if(e.which == 37) {
-		sCtx.translate(-10,0);
-		player.x -= 10;
+		sCtx.translate(-20,0);
+		player.x -= 20;
 	}
 
 	// - Right Arrow -
 	if(e.which == 39) {
-		sCtx.translate(10,0);
-		player.x += 10;
+		sCtx.translate(20,0);
+		player.x += 20;
 	}
 
 	// - ( < ) Rotates Left -
@@ -122,8 +121,8 @@ function starField() {
 	bCtx.fill();
 	// Paint Stars
 	stars();
-	sCtx.font = "28px Arial";
-	sCtx.fillStyle = "white";
+	sCtx.font = "28px Helvetica";
+	sCtx.fillStyle = "yellow";
 	sCtx.fillText("Press Enter To Start", 23, 200);
 
 }
@@ -372,8 +371,11 @@ function collisionDetection() {
 
 // === Renders Game Loop ===
 
+function gameStart() {
 
 window.setInterval(asteroid, 250);
+
+};
 
 function asteroid() {
 
@@ -443,6 +445,3 @@ function render() {
 	collisionDetection();
 
 }
-
-// - Calls Render Function -
-//render();

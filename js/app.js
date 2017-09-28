@@ -44,8 +44,8 @@ window.addEventListener('keydown', this.keyCode, false);
 // - Keyboard Controls -
 function keyCode(e) {
 
-	// - Press Enter to Start -
-	if(e.which==13) {
+	// - Press Shift to Start -
+	if(e.which==16) {
 		// - Render Function -
 		render();
 		gameStart();
@@ -123,7 +123,7 @@ function starField() {
 	stars();
 	sCtx.font = "28px Helvetica";
 	sCtx.fillStyle = "yellow";
-	sCtx.fillText("Press Enter To Start", 23, 200);
+	sCtx.fillText("Press Shift To Start", 23, 200);
 
 }
 
@@ -135,14 +135,18 @@ function drawShip() {
 	var w = 20;
 	var h = 33;
 	sCtx.save();
-	sCtx.translate(canvasShip.width /2, canvasShip.height*.92);
+	sCtx.translate(canvasShip.width /2, canvasShip.height*.9);
 	sCtx.rotate(rotation*Math.PI/180);
 	sCtx.beginPath();
 	sCtx.moveTo(0, -h / 2);
 	sCtx.lineTo(w / 2 , h / 2);
 	sCtx.lineTo(-w / 2, h / 2);
 	sCtx.lineTo(0, -h / 2);
-	sCtx.fillStyle = "rgba(24, 202, 230, .7)";
+	if(counter % 2) {
+		sCtx.fillStyle = "rgba(24, 202, 230, .7)";
+	} else {
+		sCtx.fillStyle = "rgba(0, 255, 0, .7)";
+	};
 	sCtx.fill();
 	sCtx.closePath();
 	sCtx.restore();
@@ -193,8 +197,11 @@ function Beam(I) {
 	I.height = 10;
 
 	// - Beam Color -
-	I.color = 'red';
-
+	if(counter % 2) {
+		I.color = "red";
+	} else {
+		I.color = "orange";
+	};
 	// - Return True While Inbounds -
 	I.inBounds = function() {
 
@@ -373,7 +380,7 @@ function collisionDetection() {
 
 function gameStart() {
 
-window.setInterval(asteroid, 250);
+window.setInterval(asteroid, 300);
 
 };
 

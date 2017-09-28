@@ -123,7 +123,7 @@ function drawShip() {
 	var w = 20;
 	var h = 33;
 	sCtx.save();
-	sCtx.translate(canvasShip.width /2, canvasShip.height/2);
+	sCtx.translate(canvasShip.width /2, canvasShip.height*.92);
 	sCtx.rotate(rotation*Math.PI/180);
 	sCtx.beginPath();
 	sCtx.moveTo(0, -h / 2);
@@ -143,11 +143,11 @@ function drawShip() {
 var player = {
 
 	// - Transparent - 
-	color: 'rgba(0,0,0,0)',
-	x: 139,
-	y: 210,
-	width: 20,
-	height: 32,
+	color: 'rgba(255,0,0,0)',
+	x: 138,
+	y: 400,
+	width: 23,
+	height: 30,
 	score: 0,
 
 	draw: function() {
@@ -156,46 +156,6 @@ var player = {
 		mCtx.fillRect(this.x, this.y, this.width, this.height);
 
 	}
-
-};
-
-player.point = function() {
-	this.score += 1;
-	console.log(this.score);
-}
-
-player.destroy = function() {
-	this.active = false;
-	alert('You Died!!');
-};
-
-// - Player Fire -
-player.fire = function() {
-
-	// - Fire from Middle of Ship -
-	var beamPosition = this.midpoint();
-
-	// - Push Beam Object to Player Beams Array -
-	playerBeams.push(Beam({
-
-		// - Beam Fire Rate -
-		speed: 7,
-		x: beamPosition.x,
-		y: beamPosition.y
-
-	}));
-	
-};
-
-// - Determines Midpoint of Player -
-player.midpoint = function() {
-
-	return {
-
-		x: this.x + this.width / 2,
-		y: this.y + this.height /2
-
-	};
 
 };
 
@@ -217,7 +177,7 @@ function Beam(I) {
 	I.width = 3;
 
 	//- Beam Height -
-	I.height = 7;
+	I.height = 10;
 
 	// - Beam Color -
 	I.color = 'red';
@@ -260,9 +220,9 @@ function Asteroid(A) {
 
 	A.yVelocity = A.speed;
 
-	A.width = 50;
+	A.width = 60;
 
-	A.height = 50;
+	A.height = 60;
 
 	A.color = 'rgba(126, 44, 44, 0.7)';
 
@@ -298,9 +258,50 @@ function topAtRandom() {
 
 	return {
 
-		x: Math.floor(Math.random()*300),
+		x: Math.floor(Math.random()*canvasMain.width),
 		y: 0
 
+
+	};
+
+};
+
+
+player.point = function() {
+	this.score += 1;
+	console.log(this.score);
+}
+
+player.destroy = function() {
+	this.active = false;
+	alert('You Died!!');
+};
+
+// - Player Fire -
+player.fire = function() {
+
+	// - Fire from Middle of Ship -
+	var beamPosition = this.midpoint();
+
+	// - Push Beam Object to Player Beams Array -
+	playerBeams.push(Beam({
+
+		// - Beam Fire Rate -
+		speed: 6,
+		x: beamPosition.x,
+		y: beamPosition.y
+
+	}));
+	
+};
+
+// - Determines Midpoint of Player -
+player.midpoint = function() {
+
+	return {
+
+		x: this.x + this.width / 2,
+		y: this.y + this.height /2
 
 	};
 
@@ -336,7 +337,7 @@ function collisionDetection() {
 // === Renders Game Loop ===
 
 
-window.setInterval(asteroid, 400);
+window.setInterval(asteroid, 250);
 
 function asteroid() {
 
@@ -344,7 +345,7 @@ function asteroid() {
 
 	gameAsteroids.push(Asteroid({
 
-		speed: 7 ,
+		speed: 7,
 		x: asteroidPosition.x,
 		y: asteroidPosition.y,
 

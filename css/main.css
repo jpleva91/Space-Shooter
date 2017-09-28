@@ -1,4 +1,33 @@
+/*
+* - Global Styles and Background -
+*/
+body {
+
+	background: url('../img/space-background.jpg');
+	background-size: 100%;
+	color: yellow;
+	font-family: 'Geo', sans-serif;
+	width: 93%;
+
+}
+
+
+/*
+* - Background Canvas on Bottom Layer -
+*/
+#background.canvas {
+
+	z-index: 0;
+
+}
+
+/*
+* - Centers Canvas on Page -
+*/
 canvas {
+	
+	border: 1px solid yellow;
+	border-radius: 5px;
 	position: absolute;
 	left: 50%;
 	margin-left: -150px;
@@ -6,40 +35,108 @@ canvas {
 	top: 50%;
 	height: 450px;
 	width: 300px;
-}
-
-#background.canvas {
-
-	z-index: 0;
 
 }
 
+h1 {
+	
+	font-size: 48px;
+	position: relative;
+	left: 50px;
+	top: 50px;
+
+}
+
+li {
+
+	font-size: 36px;
+
+}
+
+/*
+* - Main Canvas is Between Background and Ship Canvas -
+*/
 #main.canvas {
 
 	z-index: 1;
 
 }
 
+/*
+* - Player One Score Display -
+*/
+#playerOne {
+
+	float: left;
+	position: relative;
+	left: 20px;
+	top: 120px;
+
+}
+
+/*
+* - Player Two Score Display -
+*/
+#playerTwo {
+
+	float: right;
+	position: relative;
+	top: 120px;
+
+}
+
+/*
+* - Ship Canvas is on Top Layer
+*/
 #ship.canvas {
 
 	z-index: 2;
 
 }
 
+/*
+* - Disable List Styles -
+*/
 ul {
+
 	list-style: none;
+
 }
 
-#playerOne {
-	float: left;
-	position: relative;
-	left: 150px;
-	top: 120px;
+#winner {
+	color: rgba(0,0,0,0);
+	border: 1px solid yellow;
+	border-radius: 5px;
+	font-size: 50px;
+	height: 450px;
+	left: 50%;
+	margin-left: -150px;
+	margin-top: -225px;
+	position: absolute;
+	top: 50%;
+	width: 300px;
+	z-index: 4;
 }
 
-#playerTwo {
-	float: right;
-	position: relative;
-	right: 180px;
-	top: 120px;
+#winner p {
+	position: absolute;
+	left: 30px;
+	top: 80px;
+}
+
+#winner.gameOver {
+
+	background-color: rgba(0, 0, 0, .9);
+	border: 1px solid yellow;
+	border-radius: 5px;
+	color: white;
+	height: 450px;
+	left: 50%;
+	margin-left: -150px;
+	margin-top: -225px;
+	position: absolute;
+	top: 50%;
+	width: 300px;
+	z-index: 4;
+
 }

@@ -12,6 +12,12 @@ var playerBeams = [];
 // - Asteroids Array -
 var gameAsteroids = [];
 
+// - Player Score -
+var playerScore = 0;
+
+// - Interval Timer -
+var timer = 1500;
+
 // === Canvas Dimensions ===
 // - Bottom Layer Background Canvas -
 var canvasBackground = document.getElementById('background');
@@ -127,7 +133,7 @@ function drawShip() {
 	sCtx.lineTo(w / 2 , h / 2);
 	sCtx.lineTo(-w / 2, h / 2);
 	sCtx.lineTo(0, -h / 2);
-	sCtx.fillStyle = "rgb(24, 202, 230)";
+	sCtx.fillStyle = "rgba(24, 202, 230, .7)";
 	sCtx.fill();
 	sCtx.closePath();
 	sCtx.restore();
@@ -145,6 +151,7 @@ var player = {
 	y: 210,
 	width: 20,
 	height: 32,
+	score: 0,
 
 	draw: function() {
 
@@ -152,6 +159,46 @@ var player = {
 		mCtx.fillRect(this.x, this.y, this.width, this.height);
 
 	}
+
+};
+
+player.point = function() {
+	this.score += 1;
+	console.log(this.score);
+}
+
+player.destroy = function() {
+	this.active = false;
+	alert('You Died!!');
+};
+
+// - Player Fire -
+player.fire = function() {
+
+	// - Fire from Middle of Ship -
+	var beamPosition = this.midpoint();
+
+	// - Push Beam Object to Player Beams Array -
+	playerBeams.push(Beam({
+
+		// - Beam Fire Rate -
+		speed: 7,
+		x: beamPosition.x,
+		y: beamPosition.y
+
+	}));
+	
+};
+
+// - Determines Midpoint of Player -
+player.midpoint = function() {
+
+	return {
+
+		x: this.x + this.width / 2,
+		y: this.y + this.height /2
+
+	};
 
 };
 
@@ -206,36 +253,6 @@ function Beam(I) {
 	return I;
 }
 
-// - Player Fire -
-player.fire = function() {
-
-	// - Fire from Middle of Ship -
-	var beamPosition = this.midpoint();
-
-	// - Push Beam Object to Player Beams Array -
-	playerBeams.push(Beam({
-
-		// - Beam Fire Rate -
-		speed: 7,
-		x: beamPosition.x,
-		y: beamPosition.y
-
-	}));
-	
-};
-
-// - Determines Midpoint of Player -
-player.midpoint = function() {
-
-	return {
-
-		x: this.x + this.width / 2,
-		y: this.y + this.height /2
-
-	};
-
-};
-
 // === Asteroids! ===
 
 function Asteroid(A) {
@@ -272,6 +289,10 @@ function Asteroid(A) {
 
 	};
 
+	A.destroy = function() {
+		this.active = false;
+	}
+
 	return A;
 
 }
@@ -288,14 +309,43 @@ function topAtRandom() {
 
 };
 
+// === Collision Detection === 
+function collides(a, b) {
+	return a.x < b.x + b.width &&
+				 a.x + a.width > b.x &&
+				 a.y < b.y + b.height &&
+				 a.y + a.height > b.y;
+}
 
+function collisionDetection() {
+	playerBeams.forEach(function(beam) {
+		gameAsteroids.forEach(function(asteroid) {
+			if(collides(beam, asteroid)) {
+				player.point();
+				asteroid.destroy();
+				beam.active = false;
+			}
+		});
+	});
+
+	gameAsteroids.forEach(function(asteroid) {
+		if (collides(asteroid, player)) {
+			asteroid.destroy();
+			player.destroy();
+		}
+	})
+}
 
 // === Renders Game Loop ===
 
-window.setInterval(asteroid, 1500);
+if(playerScore > 5) {
+	timer = 100;
+}
+
+window.setInterval(asteroid, timer);
 
 function asteroid() {
-
+	console.log(timer);
 	var asteroidPosition = topAtRandom(canvasMain);
 
 	gameAsteroids.push(Asteroid({
@@ -358,6 +408,8 @@ function render() {
 	gameAsteroids.forEach(function(asteroid) {
 		asteroid.draw();
 	});
+
+	collisionDetection();
 
 }
 

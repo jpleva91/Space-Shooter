@@ -12,6 +12,8 @@ var playerBeams = [];
 // - Asteroids Array -
 var gameAsteroids = [];
 
+var counter = 0;
+
 // - Interval Timer -
 var timer = 1500;
 
@@ -148,7 +150,8 @@ var player = {
 	y: 400,
 	width: 23,
 	height: 30,
-	score: 0,
+	scoreOne: 0,
+	scoreTwo: 0,
 
 	draw: function() {
 
@@ -268,13 +271,26 @@ function topAtRandom() {
 
 
 player.point = function() {
-	this.score += 1;
-	console.log(this.score);
+
+	if(counter % 2) {
+		this.scoreOne += 1;
+		console.log("Player Two Score: " + this.scoreOne);
+	} else {
+		this.scoreTwo += 1;
+		console.log("Player One Score: " + this.scoreTwo);
+	}
+	
 }
 
 player.destroy = function() {
 	this.active = false;
-	alert('You Died!!');
+	//alert('You Died!!');
+	counter += 1;
+	if(counter % 2) {
+		alert("Player Two's Turn");
+	} else {
+		alert("Player One's Turn");
+	}
 };
 
 // - Player Fire -

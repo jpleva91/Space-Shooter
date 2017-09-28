@@ -16,6 +16,7 @@ var gameAsteroids = [];
 var playerOne = document.getElementById("playerOne");
 var playerTwo = document.getElementById("playerTwo");
 var counter = 0;
+var winner = document.getElementById("winner");
 
 // === Canvas Dimensions ===
 // - Bottom Layer Background Canvas -
@@ -114,7 +115,7 @@ function stars() {
 // - Draws Starfield Background on Background Canvas Layer -
 function starField() {
 
-	bCtx.fillStyle = "black";
+	bCtx.fillStyle = "rgba(0, 0, 0, .7)";
 	bCtx.rect(0, 0, 300, 450);
 	bCtx.fill();
 	// Paint Stars
@@ -179,34 +180,56 @@ player.point = function() {
 
 	// - First to 100 Wins -
 	if(player.scoreOne === 100) {
-		alert("Player One Wins!!!");
+
+		winner.classList.toggle("gameOver");
+		winner.innerHTML = "Player One Wins!";
+
 	}
+
 	if(player.scoreTwo === 100) {
-		alert("Player Two Wins!!!");
+
+		winner.classList.toggle("gameOver");
+		winner.innerHTML = "Player Two Wins!";	
+
 	}
 
 	// - Updates Score Based On Counter -
 	if(counter % 2) {
-		this.scoreTwo += 2;
+
+		this.scoreTwo += 5;
 		playerTwo.innerHTML = 
 		"Player Two Score: " + this.scoreTwo;
+
 	} else {
-		this.scoreOne += 2;
+
+		this.scoreOne += 5;
 		playerOne.innerHTML =
 		"Player One Score: " + this.scoreOne;
+
 	}
 	
 }
 
 // - Marks Player Object Inactive -
 player.destroy = function() {
+
 	this.active = false;
 	counter += 1;
-	if(counter % 2) {
-		alert("Player Two's Turn");
-	} else {
-		alert("Player One's Turn");
+
+	if(player.scoreOne < 100 && player.scoreTwo < 100) {
+
+		if(counter % 2){
+
+			alert("Player Two's Turn");
+
+		} else {
+
+			alert("Player One's Turn");
+
+		}
+
 	}
+
 };
 
 // - Player Fire -
@@ -428,7 +451,7 @@ function collisionDetection() {
 // - Game Start Function Bound to Shift Button -
 function gameStart() {
 
-window.setInterval(asteroid, 300);
+window.setInterval(asteroid, 500);
 render();
 
 };

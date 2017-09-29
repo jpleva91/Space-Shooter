@@ -222,14 +222,14 @@ player.point = function() {
 	if(player.scoreOne === 100) {
 
 		winner.classList.toggle("gameOver");
-		winner.innerHTML = storedPlayerOne + " Wins!";
+		winner.innerHTML = storedPlayerOne + " Wins! Press CMD+R To Play Again";
 
 	}
 
 	if(player.scoreTwo === 100) {
 
 		winner.classList.toggle("gameOver");
-		winner.innerHTML = storedPlayerTwo + " Wins!";	
+		winner.innerHTML = storedPlayerTwo + " Wins! Press CMD+R To Play Again";	
 
 	}
 

@@ -3,6 +3,11 @@ console.log("js is loaded");
 
 // === Global Variables ===
 
+// - Audio -
+var audioBeam = new Audio('assets/beam.wav');
+var explosion = new Audio('assets/explosion.wav')
+var point = new Audio('assets/point.wav');
+
 // - Ships Initial Rotation Value -
 var rotation = 0;
 
@@ -253,6 +258,8 @@ player.point = function() {
 // - Marks Player Object Inactive -
 player.destroy = function() {
 
+	explosion.play();
+
 	this.active = false;
 	counter += 1;
 
@@ -277,6 +284,9 @@ player.fire = function() {
 
 	// - Fire from Middle of Ship -
 	var beamPosition = this.midpoint();
+
+	//- Pew Sound -
+	audioBeam.play();
 
 	// - Push Beam Object to Player Beams Array -
 	playerBeams.push(Beam({
@@ -401,7 +411,9 @@ function Asteroid(A) {
 
 	// - Asteroid is Marked Inactive -
 	A.destroy = function() {
+		
 		this.active = false;
+	
 	}
 
 	return A;
@@ -459,6 +471,7 @@ function collisionDetection() {
 
 				// - Increase Player Score -
 				player.point();
+				point.play();
 
 				// - Destroy Asteroid -
 				asteroid.destroy();

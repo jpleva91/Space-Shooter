@@ -198,15 +198,18 @@ ul {
 * - Game Winner Displays on Game Over -
 */
 #winner.gameOver {
+	align-items: center;
 	background-color: rgba(0, 0, 0, .9);
 	border: 1px solid yellow;
 	border-radius: 5px;
 	color: white;
+	display: flex;
 	height: 450px;
 	left: 50%;
 	margin-left: -150px;
 	margin-top: -225px;
 	position: absolute;
+	text-align: center;
 	top: 50%;
 	width: 300px;
 	z-index: 4;

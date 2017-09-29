@@ -3,6 +3,11 @@ console.log("js is loaded");
 
 // === Global Variables ===
 
+// - Audio -
+var audioBeam = new Audio('assets/beam.wav');
+var explosion = new Audio('assets/explosion.wav')
+var point = new Audio('assets/point.wav');
+
 // - Ships Initial Rotation Value -
 var rotation = 0;
 
@@ -71,46 +76,62 @@ function keyCode(e) {
 
 	// - Press Shift to Start -
 	if(e.which==16) {
+
 		gameStart();
+
 	}
 	
 	// - Space Bar Fires -
 	if(e.which==32) {
+
 		player.fire();
+
 	}
 
 	// - Up Arrow  -
 	if(e.which == 38){
+
 		sCtx.translate(0,-20);
 		player.y -= 20;
+
 	}
 
 	// - Down Arrow -
 	if(e.which == 40) {
+
 		sCtx.translate(0, 20);
 		player.y += 20;
+
 	}
 
 	// - Left Arrow  -
 	if(e.which == 37) {
+
 		sCtx.translate(-20,0);
 		player.x -= 20;
+
 	}
 
 	// - Right Arrow -
 	if(e.which == 39) {
+
 		sCtx.translate(20,0);
 		player.x += 20;
+
 	}
 
 	// - ( < ) Rotates Left -
 	if(e.which == 188) {
+
 		rotation -= 12;
+
 	}
 
 	// - ( > ) Rotates Right -
 	if(e.which == 190) {
+
 		rotation += 12;
+
 	}
 
 }
@@ -206,14 +227,14 @@ player.point = function() {
 	if(player.scoreOne === 100) {
 
 		winner.classList.toggle("gameOver");
-		winner.innerHTML = storedPlayerOne + " Wins!";
+		winner.innerHTML = storedPlayerOne + " Wins! Press CMD+R To Play Again";
 
 	}
 
 	if(player.scoreTwo === 100) {
 
 		winner.classList.toggle("gameOver");
-		winner.innerHTML = storedPlayerTwo + " Wins!";	
+		winner.innerHTML = storedPlayerTwo + " Wins! Press CMD+R To Play Again";	
 
 	}
 
@@ -236,6 +257,8 @@ player.point = function() {
 
 // - Marks Player Object Inactive -
 player.destroy = function() {
+
+	explosion.play();
 
 	this.active = false;
 	counter += 1;
@@ -261,6 +284,9 @@ player.fire = function() {
 
 	// - Fire from Middle of Ship -
 	var beamPosition = this.midpoint();
+
+	//- Pew Sound -
+	audioBeam.play();
 
 	// - Push Beam Object to Player Beams Array -
 	playerBeams.push(Beam({
@@ -385,7 +411,9 @@ function Asteroid(A) {
 
 	// - Asteroid is Marked Inactive -
 	A.destroy = function() {
+		
 		this.active = false;
+	
 	}
 
 	return A;
@@ -443,6 +471,7 @@ function collisionDetection() {
 
 				// - Increase Player Score -
 				player.point();
+				point.play();
 
 				// - Destroy Asteroid -
 				asteroid.destroy();

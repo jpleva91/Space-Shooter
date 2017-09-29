@@ -5,7 +5,7 @@
 [View my Trello board for this project](https://trello.com/b/t8GXIQ8G/wdi-project-1)
 
 ### Play the Game
-[Asteroids.. Invaders? 2](https://jpleva91.github.io/project-1/game.html)
+[Asteroids.. Invaders? 2](https://jpleva91.github.io/project-1/index.html)
 
 ## Game Wireframes
 ### Game Start

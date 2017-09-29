@@ -18,6 +18,30 @@ var playerTwo = document.getElementById("playerTwo");
 var counter = 0;
 var winner = document.getElementById("winner");
 
+// === Local Storage Functions and Variables ===
+
+// - Store Variables From Form Input to Local Storage - 
+function playerNames() {
+
+	var playerOneName = document.getElementById("playerOneName");
+	localStorage.setItem("playerOneName", playerOneName.value);
+	var playerTwoName = document.getElementById("playerTwoName");
+	localStorage.setItem("playerTwoName", playerTwoName.value);
+
+}
+
+// - Pull from Local Storage and Store in New Variables -
+var storedPlayerOne = localStorage.getItem("playerOneName");
+var storedPlayerTwo = localStorage.getItem("playerTwoName");
+
+// - Change HTML Using Stored Values -
+playerOne.innerHTML =
+storedPlayerOne + "'s Score: 0";
+
+playerTwo.innerHTML = 
+storedPlayerTwo + "'s Score: 0";
+
+
 // === Canvas Dimensions ===
 // - Bottom Layer Background Canvas -
 var canvasBackground = document.getElementById('background');
@@ -182,14 +206,14 @@ player.point = function() {
 	if(player.scoreOne === 100) {
 
 		winner.classList.toggle("gameOver");
-		winner.innerHTML = "Player One Wins!";
+		winner.innerHTML = storedPlayerOne + " Wins!";
 
 	}
 
 	if(player.scoreTwo === 100) {
 
 		winner.classList.toggle("gameOver");
-		winner.innerHTML = "Player Two Wins!";	
+		winner.innerHTML = storedPlayerTwo + " Wins!";	
 
 	}
 
@@ -198,13 +222,13 @@ player.point = function() {
 
 		this.scoreTwo += 5;
 		playerTwo.innerHTML = 
-		"Player Two Score: " + this.scoreTwo;
+		storedPlayerTwo + "'s Score: " + this.scoreTwo;
 
 	} else {
 
 		this.scoreOne += 5;
 		playerOne.innerHTML =
-		"Player One Score: " + this.scoreOne;
+		storedPlayerOne + "'s Score: " + this.scoreOne;
 
 	}
 	
@@ -220,11 +244,11 @@ player.destroy = function() {
 
 		if(counter % 2){
 
-			alert("Player Two's Turn");
+			alert(storedPlayerTwo + "'s Turn!");
 
 		} else {
 
-			alert("Player One's Turn");
+			alert(storedPlayerOne + "'s Turn!");
 
 		}
 

@@ -320,8 +320,8 @@ function Beam(I) {
 	// - Beam Starts Active -
 	I.active = true;
 
-	// - Doesn't Move Along X Axis (Need to Link this to Rotation) - 
-	I.xVelocity = 0;
+	// - Links to Rotation - 
+	I.xVelocity = rotation * .08;
 
 	// - Shoots Upward -
 	I.yVelocity = -I.speed;

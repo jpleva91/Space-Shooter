@@ -71,46 +71,62 @@ function keyCode(e) {
 
 	// - Press Shift to Start -
 	if(e.which==16) {
+
 		gameStart();
+
 	}
 	
 	// - Space Bar Fires -
 	if(e.which==32) {
+
 		player.fire();
+
 	}
 
 	// - Up Arrow  -
 	if(e.which == 38){
+
 		sCtx.translate(0,-20);
 		player.y -= 20;
+
 	}
 
 	// - Down Arrow -
 	if(e.which == 40) {
+
 		sCtx.translate(0, 20);
 		player.y += 20;
+
 	}
 
 	// - Left Arrow  -
 	if(e.which == 37) {
+
 		sCtx.translate(-20,0);
 		player.x -= 20;
+
 	}
 
 	// - Right Arrow -
 	if(e.which == 39) {
+
 		sCtx.translate(20,0);
 		player.x += 20;
+
 	}
 
 	// - ( < ) Rotates Left -
 	if(e.which == 188) {
+
 		rotation -= 12;
+
 	}
 
 	// - ( > ) Rotates Right -
 	if(e.which == 190) {
+
 		rotation += 12;
+
 	}
 
 }

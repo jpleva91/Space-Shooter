@@ -1,26 +1,33 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>Asteroids.. Invaders??  ..2</title>
-	<link rel="stylesheet" href="css/main.css">
-	<link href="https://fonts.googleapis.com/css?family=Geo" rel="stylesheet">
-</head>
-<body>
-	<h1>Asteroid..</h1>
-	<h1>Invaders??</h1>
-	<h1>..2</h1>
-	<ul id="gameRules">
-		<li class="rules">* First Player to Reach 100 Points Wins</li>
-		<li class="rules">* Use Directional Keys To Move Around</li>
-		<li class="rules">* Press the Spacebar to Fire</li>
-		<li class="rules">* Players Switch Turns When Hit By Asteroid</li>
-	</ul>
-	<form id="form" action="game.html">
-		<input id="playerOneName" type="text" name="name" value="Player One Name Here" />
-		<input id="playerTwoName" type="text" name="name" value="Player Two Name Here" />
-		<input id="playerSubmit" class="grow" type="submit" value="Play!" onclick="playerNames();" />
-	</form>
-
-	<script src="js/app.js"></script>
-</body>
+	<head>
+		<title>Asteroids.. Invaders??  ..2</title>
+		<link rel="stylesheet" href="css/main.css">
+		<!-- Imports Geo Font -->
+		<link href="https://fonts.googleapis.com/css?family=Geo" rel="stylesheet">
+	</head>
+	<body>
+		<!-- Heading Broken into Three Lines -->
+		<h1>Asteroid..</h1>
+		<h1>Invaders??</h1>
+		<h1>..2</h1>
+		<!-- Game Rules Unordered List -->
+		<ul id="gameRules">
+			<li class="rules">* First Player to Reach 100 Points Wins</li>
+			<li class="rules">* Use Directional Keys To Move Around</li>
+			<li class="rules">* Press the Spacebar to Fire</li>
+			<li class="rules">* Players Switch Turns When Hit By Asteroid</li>
+		</ul>
+		<!-- Player Name Input Form Takes You to Game Page -->
+		<form id="form" action="game.html">
+			<!-- Player One Name -->
+			<input id="playerOneName" type="text" name="name" value="Player One Name Here" />
+			<!-- Player Two Name -->
+			<input id="playerTwoName" type="text" name="name" value="Player Two Name Here" />
+			<!-- Submit Button Runs playerNames Function -->
+			<input id="playerSubmit" class="grow" type="submit" value="Play!" onclick="playerNames();" />
+		</form>
+		<!-- Imports javaScript File -->
+		<script src="js/app.js"></script>
+	</body>
 </html>

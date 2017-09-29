@@ -375,8 +375,12 @@ function Asteroid(A) {
 	// - Starts Active -
 	A.active = true;
 
-	// - Doesn't Move Horizontally -
-	A.xVelocity = 0;
+	// - Random number between 1 and 2 -
+	var num = Math.floor(Math.random()*1) + 1;
+	// - Positive and Negative -
+	A.xVelocity = 
+	num *= Math.floor(Math.random()*2) == 1 ? 1 : -1;
+
 
 	// - Falls Top to Bottom - 
 	A.yVelocity = A.speed;
@@ -427,7 +431,7 @@ function asteroid() {
 
 	gameAsteroids.push(Asteroid({
 
-		speed: 4,
+		speed: 3,
 		x: asteroidPosition.x,
 		y: asteroidPosition.y,
 

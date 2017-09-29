@@ -41,8 +41,8 @@ storedPlayerOne + "'s Score: 0";
 playerTwo.innerHTML = 
 storedPlayerTwo + "'s Score: 0";
 
-
 // === Canvas Dimensions ===
+
 // - Bottom Layer Background Canvas -
 var canvasBackground = document.getElementById('background');
 
@@ -399,7 +399,7 @@ function asteroid() {
 
 	gameAsteroids.push(Asteroid({
 
-		speed: 7,
+		speed: 4,
 		x: asteroidPosition.x,
 		y: asteroidPosition.y,
 

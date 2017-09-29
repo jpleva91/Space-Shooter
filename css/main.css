@@ -39,8 +39,7 @@ canvas,
 
 }
 
-
- #form {
+#form {
 	animation-name: form;
   animation-duration: 8s;
 	background-color: rgba(0,0,0,.7);

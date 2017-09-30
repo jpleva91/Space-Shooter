@@ -12,7 +12,7 @@
 		<h1>Invaders??</h1>
 		<h1>..2</h1>
 		<!-- Game Rules Unordered List -->
-		<ul id="gameRules">
+		<ul id="gameRules" class="font-effect-shadow-multiple">
 			<li class="rules">* First Player to Reach 100 Points Wins</li>
 			<li class="rules">* Use Directional Keys To Move Around</li>
 			<li class="rules">* Press the Spacebar to Fire</li>
@@ -21,9 +21,9 @@
 		<!-- Player Name Input Form Takes You to Game Page -->
 		<form id="form" action="game.html">
 			<!-- Player One Name -->
-			<input id="playerOneName" type="text" name="name" value="Player One Name Here" />
+			<input id="playerOneName" type="text" name="name" placeholder="Player One Name Here" required />
 			<!-- Player Two Name -->
-			<input id="playerTwoName" type="text" name="name" value="Player Two Name Here" />
+			<input id="playerTwoName" type="text" name="name" placeholder="Player Two Name Here" required />
 			<!-- Submit Button Runs playerNames Function -->
 			<input id="playerSubmit" class="grow" type="submit" value="Play!" onclick="playerNames();" />
 		</form>

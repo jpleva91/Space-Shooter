@@ -69,8 +69,8 @@ canvas,
 /*
 * - Grow Animation -
 */
-.grow:hover {	
-	transform: scale(2);
+#playerSubmit.grow:hover {	
+	transform: scale(1.5);
 }
 
 /*

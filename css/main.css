@@ -46,10 +46,13 @@ canvas,
 * - Game Rules Position -
 */
 #gameRules {
-	bottom: -100px;
+	background-color: rgba(0,0,0,.7);
+	border-radius: 5px;
 	float: right;
 	left: 70px;
+	padding-top: 10px;
 	position: relative;
+	top: -220px;
 }
 
 /*
@@ -111,9 +114,12 @@ h1 {
 * - Player One Score Display -
 */
 #playerOne {
+	background-color: rgba(0,0,0,.7);
+	border-radius: 5px;
 	float: left;
+	left: 100px;
+	padding: 5px;
 	position: relative;
-	left: 20px;
 	top: 120px;
 }
 
@@ -135,8 +141,12 @@ h1 {
 * - Player Two Score Display -
 */
 #playerTwo {
+	background-color: rgba(0,0,0,.7);
+	border-radius: 5px;
 	float: right;
+	padding: 5px;
 	position: relative;
+	right: -400px;
 	top: 120px;
 }
 
@@ -159,7 +169,12 @@ h1 {
 * - Rules Font Size -
 */
 .rules {
-	font-size: 26px;
+	font-size: 24px;
+	font-weight: 700;
+	padding: 0px 0px 10px 0px;
+	position: relative;
+	list-style: none;
+	left: -20px;
 }
 
 /*
